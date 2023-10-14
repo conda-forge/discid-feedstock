@@ -1,0 +1,49 @@
+From 5546405c7147c16d6f206d968a846ea44d5763d3 Mon Sep 17 00:00:00 2001
+From: HeavyTony2 <HeavyTony2@users.noreply.github.com>
+Date: Sat, 14 Oct 2023 16:39:52 -0400
+Subject: [PATCH] test
+
+---
+ discid/libdiscid.py | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/discid/libdiscid.py b/discid/libdiscid.py
+index 59553e5..ecbc204 100644
+--- a/discid/libdiscid.py
++++ b/discid/libdiscid.py
+@@ -23,6 +23,7 @@ The code that works with Disc objects is in disc.py
+ import os
+ import sys
+ import ctypes
++import fnmatch
+ from ctypes import c_void_p, c_char_p
+ from ctypes.util import find_library
+ 
+@@ -31,6 +32,14 @@ from discid.util import _encode, _decode
+ _LIB_BASE_NAME = "discid"
+ _LIB_MAJOR_VERSION = 0
+ 
++def find(pattern, path):
++    result = []
++    for root, dirs, files in os.walk(path):
++        for name in files:
++            if fnmatch.fnmatch(name, pattern):
++                result.append(os.path.join(root, name))
++    return result
++
+ 
+ def _find_library(name, version=0):
+     """Find a library by base-name and major version
+@@ -96,7 +105,8 @@ def _open_library(lib_name):
+     """Open a library by name or location
+     """
+     try:
+-        return ctypes.cdll.LoadLibrary(lib_name)
++        libfind = find("discid.dll","c:/")
++        return ctypes.cdll.LoadLibrary(libfind[0])
+     except OSError as exc:
+         if lib_name not in str(exc):
+             # replace uninformative Error on Windows
+-- 
+2.34.1.windows.1
+
