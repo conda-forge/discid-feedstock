@@ -8,8 +8,6 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/discid-{{ version }}.tar.gz
   sha256: cd9630bc53f5566df92819641040226e290b2047573f2c74a6e92b8eed9e86b9
-  patches: 
-    - 0001-test.patch    # [win]
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
@@ -30,6 +28,7 @@ test:
     - pip check
   requires:
     - pip
+    - libdiscid
 
 about:
   home: https://python-discid.readthedocs.org/
