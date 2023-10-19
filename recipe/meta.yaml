@@ -12,7 +12,7 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -21,7 +21,6 @@ requirements:
   run:
     - python >=3.6
     - libdiscid
-    - __unix  # [unix]
 
 test:
   imports:
