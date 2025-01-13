@@ -1,5 +1,3 @@
-bot:
-  inspection: hint-all 
 github:
   branch_name: main
   tooling_branch_name: main
